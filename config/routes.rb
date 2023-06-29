@@ -1,3 +1,15 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :apartments, except: [:new, :edit] do
+    resources :tenants, only: [:index, :create]
+    resources :leases, only: [:index, :create]
+  end
+
+  resources :tenants, except: [:new, :edit] do
+    resources :leases, only: [:index]
+  end
+
+  resources :leases, only: [:destroy, :show, :update]
+
+  # Additional custom routes if needed
+
 end
